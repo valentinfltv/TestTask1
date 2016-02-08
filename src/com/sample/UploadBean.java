@@ -23,6 +23,10 @@ import java.util.zip.ZipOutputStream;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
+//What can I say - take care about your nerves.
+//This shitcode begs for refactoring...
+//But it works at least)
+
 @ManagedBean (name = "uploadBean")
 @ViewScoped
 public class UploadBean {
@@ -65,6 +69,8 @@ public class UploadBean {
         this.file2 = file2;
     }
 
+// Method for finding difference between two strings
+
     public String Dif(String file1Content, String file2Content, int minLength, int maxLength, short fileNumber) {
         String Content = "";
         for (int i = 0; i < minLength; i++) {
@@ -88,20 +94,22 @@ public class UploadBean {
         return Content;
     }
 
+//name of the method below says clearly about it functions)
 
     public void upload() throws IOException {
-
+//IDE swearing that variables maybe won't be initialized...
         String file1Content = "", file2Content = "";
 
         String ext1 = FilenameUtils.getExtension(file1.getSubmittedFileName());
         String ext2 = FilenameUtils.getExtension(file2.getSubmittedFileName());
-
+//  Check upload fields and if they're empty or contains wrong file- throw message  it
         if (!ext1.equals("txt")) {
             FacesContext.getCurrentInstance().addMessage("myform:uploader1", new FacesMessage("File has problems, insert .txt"));
         }
         if (!ext2.equals("txt")) {
             FacesContext.getCurrentInstance().addMessage("myform:uploader2", new FacesMessage("File has problems, insert .txt"));
         } else {
+//  Get content of the uploaded files
             setReady(true);
             Scanner s = new Scanner(file1.getInputStream());
 
@@ -115,6 +123,7 @@ public class UploadBean {
 //            System.out.println(file1Content);
 //            System.out.println(file2Content);
 
+//  Prioritize texts
             short fileNumber;
             int shortest, longest;
 
@@ -127,7 +136,7 @@ public class UploadBean {
                 shortest = file2Content.length();
                 longest = file1Content.length();
             }
-
+//  Find out difference between texts
             String Content = Dif(file1Content, file2Content, shortest, longest, fileNumber);
 
             setText(Content);
@@ -141,13 +150,14 @@ public class UploadBean {
     }
     public void downloadFile() throws IOException {
 
-        // writing string with result to file
-        //
+// writing string with result to file
+
         if (getReady() == true) {
         String text = getText();
+
 //        System.out.println("Text in downloadFile()  "+text);
 
-            File file = new File("D://TestTask.txt");
+            File file = new File("D:\\TestTask.txt");
 
             try (FileOutputStream fop = new FileOutputStream(file)) {
                 // if file doesn't exists, then create it
@@ -167,7 +177,7 @@ public class UploadBean {
                 e.printStackTrace();
             }
 
-            // zipping file
+// zipping file
             //
             byte[] buffer = new byte[1024];
             File zipFile = new File("D:\\MyFile.zip");
@@ -196,7 +206,7 @@ public class UploadBean {
                 ex.printStackTrace();
             }
 
-            // send data to browser
+//  Realizing downloading in browser
 
             HttpServletResponse response = (HttpServletResponse) getCurrentInstance().getExternalContext().getResponse();
 
@@ -226,6 +236,7 @@ public class UploadBean {
             }
 
         }
+//  Send message if user press download button without uploading files
         else{
             FacesContext.getCurrentInstance().addMessage("myform:downloadZip", new FacesMessage("At first, upload files"));
         }

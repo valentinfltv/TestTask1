@@ -6,6 +6,9 @@ package com.sample;
 import java.sql.*;
 
 public class UserDAO {
+//
+//    Connect to DataBase for confirmation user
+//
     public static boolean login(String user, String password) {
         Connection con = null;
         PreparedStatement ps = null;

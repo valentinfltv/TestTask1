@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 
 public class LoginBean implements Serializable {
-
+//
+//    Login logic
+//
     private static final long serialVersionUID = 1L;
     private String password;
     private String message, uname;
@@ -52,7 +54,7 @@ public class LoginBean implements Serializable {
 
             return "home";
         } else {
-
+// Error message
             FacesContext.getCurrentInstance().addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN,

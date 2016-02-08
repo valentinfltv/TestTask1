@@ -9,7 +9,9 @@ import javax.servlet.http.HttpSession;
 
 
 public class Util {
-
+//
+//  Some magic for
+//
     public static HttpSession getSession() {
         return (HttpSession)
                 FacesContext.
