@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Facelet Title</title>
+
+</h:head>
+<h:body>
+    <h:form >
+        <p>Welcome, #{loginBean.uname}</p>
+        <p:commandButton action="#{loginBean.logout}" value="Logout"  ajax="false"></p:commandButton>
+    </h:form>
+
+    <h:form enctype="multipart/form-data" id="myform"  style=" margin-top: 30px;">
+
+
+    <h:inputFile id="uploader1" value="#{uploadBean.file1}" style="margin: 5px 0;" />
+        <h:message for="uploader1" style="color:red" />
+    <br />
+    <h:inputFile id="uploader2" value="#{uploadBean.file2}" style="margin: 5px 0;" />
+        <h:message for="uploader2" style="color:red" />
+    <br />
+    <h:commandButton value="Upload files" action="#{uploadBean.upload}" style="margin: 20px 0 15px;" />
+        <br />
+        <h:commandButton id="downloadZip" value="Download zip archive" action="#{uploadBean.downloadFile}"  />
+        <h:message for="downloadZip" style="color:red" />
+        <br />
+        <div style="margin: 5px auto 20px; width:50%; text-align: center; ">
+            <h:outputText value="Result:" />
+        </div>
+    <div style="margin:0 auto; width:600px; box-shadow: 0 0 25px #DEDEDE; border-radius: 4px;">
+        <h:outputText id="display" value="#{uploadBean.text}" style=" font-weight: bold;"/>
+    </div>
+    </h:form>
+
+</h:body>
+</html>
